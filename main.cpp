@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     SDL_Surface *ecran = NULL;
     SDL_Surface *lignes[256] = {NULL};
     SDL_Rect position;
-    int i = 0;
+    int i = 0, colorT = 255;
 
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     {
         position.x = 0; // Les lignes sont à gauche (abscisse de 0)
         position.y = i; // La position verticale dépend du numéro de la ligne
-        SDL_FillRect(lignes[i], NULL, SDL_MapRGB(ecran->format, i, i, i));
+        SDL_FillRect(lignes[i], NULL, SDL_MapRGB(ecran->format, (colorT - i), (colorT - i), (colorT - i)));
         SDL_BlitSurface(lignes[i], NULL, ecran, &position);
     }
 
