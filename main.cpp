@@ -32,6 +32,8 @@ int main(int argc, char *argv[])
 
     /* Chargement et blittage de Zozor sur la scène */
     zozor = SDL_LoadBMP("images/zozor.bmp");
+
+    SDL_SetColorKey(zozor, SDL_SRCCOLORKEY, SDL_MapRGB(zozor->format, 0, 0, 255));
     SDL_BlitSurface(zozor, NULL, ecran, &positionZozor);
 
     SDL_Flip(ecran);
