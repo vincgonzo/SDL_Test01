@@ -12,53 +12,27 @@ void pause();
 
 int main(int argc, char *argv[])
 {
-    SDL_Surface *ecran = NULL;
-    SDL_Surface *lignes[256] = {NULL};
-    SDL_Rect position;
-    int i = 0, colorT = 255;
+    SDL_Surface *ecran = NULL, *imageDeFond = NULL;
+    SDL_Rect positionFond;
 
+    positionFond.x = 0;
+    positionFond.y = 0;
 
     SDL_Init(SDL_INIT_VIDEO);
 
-    ecran = SDL_SetVideoMode(640, 256, 32, SDL_HWSURFACE);
+    ecran = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
+    SDL_WM_SetCaption("Chargement d'images en SDL", NULL);
 
-    for (i = 0 ; i <= 255 ; i++)
-        lignes[i] = SDL_CreateRGBSurface(SDL_HWSURFACE, 640, 1, 32, 0, 0, 0, 0);
-
-    SDL_WM_SetCaption("Layered Test on SDL !", NULL);
-
-    SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-
-    for (i = 0 ; i <= 255 ; i++)
-    {
-        position.x = 0; // Les lignes sont à gauche (abscisse de 0)
-        position.y = i; // La position verticale dépend du numéro de la ligne
-        SDL_FillRect(lignes[i], NULL, SDL_MapRGB(ecran->format, (colorT - i), (colorT - i), (colorT - i)));
-        SDL_BlitSurface(lignes[i], NULL, ecran, &position);
-    }
+    /* Chargement d'une image Bitmap dans une surface */
+    imageDeFond = SDL_LoadBMP("lac_en_montagne.bmp");
+    /* On blitte par-dessus l'écran */
+    SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 
     SDL_Flip(ecran);
     pause();
 
-    for (i = 0 ; i <= 255 ; i++) // N'oubliez pas de libérer les 256 surfaces
-        SDL_FreeSurface(lignes[i]);
+    SDL_FreeSurface(imageDeFond);
     SDL_Quit(); // Arrêt de la SDL
 
     return EXIT_SUCCESS; // Fermeture du programme
-}
-
-void pause()
-{
-    int continuer = 1;
-    SDL_Event event;
-
-    while (continuer)
-    {
-        SDL_WaitEvent(&event);
-        switch(event.type)
-        {
-            case SDL_QUIT:
-                continuer = 0;
-        }
-    }
 }
