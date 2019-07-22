@@ -13,9 +13,11 @@ void pause();
 int main(int argc, char *argv[])
 {
     SDL_Surface *ecran = NULL;
+    SDL_Surface *rectangle = NULL;
 
     SDL_Init(SDL_INIT_VIDEO); // Initialisation de la SDL
     ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE); // Ouverture de la fenêtre
+    rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, 220, 180, 32, 0, 0, 0, 0);
 
     if(ecran == NULL)
     {
@@ -24,8 +26,14 @@ int main(int argc, char *argv[])
     }
 
     SDL_WM_SetCaption("That is my window Game", NULL);
+
+    SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 17, 206, 112));
+
+    SDL_Flip(ecran);
+    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
     pause(); // Mise en pause du programme
 
+    SDL_FreeSurface(rectangle);
     SDL_Quit(); // Arrêt de la SDL
 
     return EXIT_SUCCESS; // Fermeture du programme
