@@ -13,33 +13,35 @@ void pause();
 int main(int argc, char *argv[])
 {
     SDL_Surface *ecran = NULL;
-    SDL_Surface *rectangle = NULL;
-
-    SDL_Init(SDL_INIT_VIDEO); // Initialisation de la SDL
-    ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE); // Ouverture de la fenêtre
-
+    SDL_Surface *lignes[256] = {NULL};
     SDL_Rect position;
+    int i = 0;
 
-    position.x = (640/2) - (220/2);
-    position.y = (480/2) - (220/2);
-    rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, 220, 180, 32, 0, 0, 0, 0);
 
-    if(ecran == NULL)
+    SDL_Init(SDL_INIT_VIDEO);
+
+    ecran = SDL_SetVideoMode(640, 256, 32, SDL_HWSURFACE);
+
+    for (i = 0 ; i <= 255 ; i++)
+        lignes[i] = SDL_CreateRGBSurface(SDL_HWSURFACE, 640, 1, 32, 0, 0, 0, 0);
+
+    SDL_WM_SetCaption("Layered Test on SDL !", NULL);
+
+    SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+
+    for (i = 0 ; i <= 255 ; i++)
     {
-        fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
-        exit(EXIT_FAILURE);
+        position.x = 0; // Les lignes sont à gauche (abscisse de 0)
+        position.y = i; // La position verticale dépend du numéro de la ligne
+        SDL_FillRect(lignes[i], NULL, SDL_MapRGB(ecran->format, i, i, i));
+        SDL_BlitSurface(lignes[i], NULL, ecran, &position);
     }
 
-    SDL_WM_SetCaption("That is my window Game", NULL);
-
-    SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 17, 206, 112));
-    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
-    SDL_BlitSurface(rectangle, NULL, ecran, &position);
-
     SDL_Flip(ecran);
-    pause(); // Mise en pause du programme
+    pause();
 
-    SDL_FreeSurface(rectangle);
+    for (i = 0 ; i <= 255 ; i++) // N'oubliez pas de libérer les 256 surfaces
+        SDL_FreeSurface(lignes[i]);
     SDL_Quit(); // Arrêt de la SDL
 
     return EXIT_SUCCESS; // Fermeture du programme
