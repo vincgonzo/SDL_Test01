@@ -47,9 +47,26 @@ int main(int argc, char *argv[])
                     case SDLK_ESCAPE: /* Appui sur la touche Echap, on arrête le programme */
                         continuer = 0;
                         break;
+                    case SDLK_UP: // Flèche haut
+                        positionZozor.y--;
+                        break;
+                    case SDLK_DOWN: // Flèche bas
+                        positionZozor.y++;
+                        break;
+                    case SDLK_RIGHT: // Flèche droite
+                        positionZozor.x++;
+                        break;
+                    case SDLK_LEFT: // Flèche gauche
+                        positionZozor.x--;
+                        break;
                 }
                 break;
         }
+
+
+        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
+        SDL_BlitSurface(zozor, NULL, ecran, &positionZozor);
+        SDL_Flip(ecran);
     }
 
     SDL_FreeSurface(zozor);
