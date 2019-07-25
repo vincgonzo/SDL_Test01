@@ -12,7 +12,8 @@ void pause();
 
 int main(int argc, char *argv[])
 {
-    SDL_Surface *ecran = NULL;
+    SDL_Surface *ecran = NULL, *zozor = NULL;
+    SDL_Rect positionZozor;
     SDL_Event event; /* La variable contenant l'événement */
     int continuer = 1; /* Notre booléen pour la boucle */
 
@@ -20,6 +21,17 @@ int main(int argc, char *argv[])
 
     ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Gestion des evenements en SDL", NULL);
+    SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
+    /* On centre Zozor à l'écran */
+
+    zozor = SDL_LoadBMP("images/zozor.bmp");
+
+    positionZozor.x = ecran->w / 2 - zozor->w / 2;
+    positionZozor.y = ecran->h / 2 - zozor->h / 2;
+
+    SDL_SetColorKey(zozor, SDL_SRCCOLORKEY, SDL_MapRGB(zozor->format, 0, 0, 255));
+    SDL_BlitSurface(zozor, NULL, ecran, &positionZozor);
+    SDL_Flip(ecran);
 
     while (continuer) /* TANT QUE la variable ne vaut pas 0 */
     {
@@ -29,8 +41,19 @@ int main(int argc, char *argv[])
             case SDL_QUIT: /* Si c'est un événement QUITTER */
                 continuer = 0; /* On met le booléen à 0, donc la boucle va s'arrêter */
                 break;
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_ESCAPE: /* Appui sur la touche Echap, on arrête le programme */
+                        continuer = 0;
+                        break;
+                }
+                break;
         }
     }
+
+    SDL_FreeSurface(zozor);
+    SDL_Quit();
 
     return EXIT_SUCCESS;
 }
