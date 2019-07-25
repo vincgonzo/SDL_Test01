@@ -43,8 +43,16 @@ int main(int argc, char *argv[])
                 continuer = 0; /* On met le booléen à 0, donc la boucle va s'arrêter */
                 break;
             case SDL_MOUSEBUTTONUP:
-                positionZozor.x = event.button.x;
-                positionZozor.y = event.button.y;
+                switch(event.button.button)
+                {
+                    case SDL_BUTTON_LEFT:
+                        positionZozor.x = event.button.x;
+                        positionZozor.y = event.button.y;
+                        break;
+                    case SDL_BUTTON_RIGHT:
+                        continuer = 0;
+                        break;
+                }
                 break;
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym)
