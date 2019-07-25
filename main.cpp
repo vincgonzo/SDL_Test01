@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     SDL_Init(SDL_INIT_VIDEO);
 
-    ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
+    ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Gestion des evenements en SDL", NULL);
     SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
     /* On centre Zozor à l'écran */
