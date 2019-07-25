@@ -84,7 +84,6 @@ int main(int argc, char *argv[])
                 break;
         }
 
-
         SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
         SDL_BlitSurface(zozor, NULL, ecran, &positionZozor);
         SDL_Flip(ecran);
