@@ -33,7 +33,10 @@ int main(int argc, char *argv[])
     SDL_BlitSurface(zozor, NULL, ecran, &positionZozor);
     SDL_Flip(ecran);
 
+    // Option for keyBoard &| mouse
     SDL_EnableKeyRepeat(10, 10);
+    //SDL_ShowCursor(SDL_DISABLE); // To disable mouse display into screen
+
     while (continuer) /* TANT QUE la variable ne vaut pas 0 */
     {
         SDL_WaitEvent(&event); /* On attend un événement qu'on récupère dans event */
