@@ -42,6 +42,10 @@ int main(int argc, char *argv[])
             case SDL_QUIT: /* Si c'est un événement QUITTER */
                 continuer = 0; /* On met le booléen à 0, donc la boucle va s'arrêter */
                 break;
+            case SDL_MOUSEBUTTONUP:
+                positionZozor.x = event.button.x;
+                positionZozor.y = event.button.y;
+                break;
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym)
                 {
