@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     // Option for keyBoard &| mouse
     SDL_EnableKeyRepeat(10, 10);
     //SDL_ShowCursor(SDL_DISABLE); // To disable mouse display into screen
+    SDL_WarpMouse(ecran->w / 2, ecran->h / 2);
 
     while (continuer) /* TANT QUE la variable ne vaut pas 0 */
     {
