@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
     SDL_BlitSurface(zozor, NULL, ecran, &positionZozor);
     SDL_Flip(ecran);
 
+    SDL_EnableKeyRepeat(10, 10);
     while (continuer) /* TANT QUE la variable ne vaut pas 0 */
     {
         SDL_WaitEvent(&event); /* On attend un événement qu'on récupère dans event */
