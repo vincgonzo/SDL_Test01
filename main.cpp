@@ -58,6 +58,10 @@ int main(int argc, char *argv[])
                         break;
                 }
                 break;
+            case SDL_VIDEORESIZE:
+                positionZozor.x = event.resize.w / 2 - zozor->w / 2;
+                positionZozor.y = event.resize.h / 2 - zozor->h / 2;
+                break;
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym)
                 {
