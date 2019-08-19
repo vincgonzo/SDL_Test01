@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     SDL_Rect positionZozor;
     SDL_Event event; /* La variable contenant l'événement */
     int continuer = 1; /* Notre booléen pour la boucle */
-    int tempPrecedent = 0, tempActuel = 0;
+    int tempPrecedent = 0, tempActuel = 0, versLaDroite = 0;
 
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -45,15 +45,32 @@ int main(int argc, char *argv[])
         //SDL_WaitEvent(&event); /* On attend un événement qu'on récupère dans event */
         SDL_PollEvent(&event);
 
-        if(tempActuel - tempPrecedent > 30)
+        if(positionZozor.x >= ecran->w)
         {
-            positionZozor.x++;
+            versLaDroite = 1;
+        }
+        else if(positionZozor.x <= 0)
+        {
+            versLaDroite = 0;
+        }
+
+        if(tempActuel - tempPrecedent > 15)
+        {
+            if(versLaDroite == 1)
+            {
+                positionZozor.x-=10;
+            }
+            else
+            {
+                positionZozor.x+=10;
+            }
             tempPrecedent = tempActuel;
         }
         else
         {
-            SDL_Delay(30 - (tempActuel - tempPrecedent));
+            SDL_Delay(15 - (tempActuel - tempPrecedent));
         }
+
 
 
         switch(event.type) /* On teste le type d'événement */
