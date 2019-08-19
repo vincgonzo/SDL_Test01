@@ -6,6 +6,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <SDL/SDL_ttf.h>
 #include <SDL/SDL.h>
 
 void pause();
@@ -16,6 +17,11 @@ int main(int argc, char *argv[])
     SDL_Surface *rectangle = NULL;
 
     SDL_Init(SDL_INIT_VIDEO); // Initialisation de la SDL
+    if(TTF_Init() == -1)
+    {
+        fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
+        exit(EXIT_FAILURE);
+    }
     ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE); // Ouverture de la fenêtre
 
     SDL_Rect position;
