@@ -50,6 +50,12 @@ int main(int argc, char *argv[])
             positionZozor.x++;
             tempPrecedent = tempActuel;
         }
+        else
+        {
+            SDL_Delay(30 - (tempActuel - tempPrecedent));
+        }
+
+
         switch(event.type) /* On teste le type d'événement */
         {
             case SDL_QUIT: /* Si c'est un événement QUITTER */
