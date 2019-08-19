@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     SDL_Rect positionZozor;
     SDL_Event event; /* La variable contenant l'événement */
     int continuer = 1; /* Notre booléen pour la boucle */
+    int tempPrecedent = 0, tempActuel = 0;
 
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -40,7 +41,15 @@ int main(int argc, char *argv[])
 
     while (continuer) /* TANT QUE la variable ne vaut pas 0 */
     {
-        SDL_WaitEvent(&event); /* On attend un événement qu'on récupère dans event */
+        tempActuel = SDL_GetTicks();
+        //SDL_WaitEvent(&event); /* On attend un événement qu'on récupère dans event */
+        SDL_PollEvent(&event);
+
+        if(tempActuel - tempPrecedent > 30)
+        {
+            positionZozor.x++;
+            tempPrecedent = tempActuel;
+        }
         switch(event.type) /* On teste le type d'événement */
         {
             case SDL_QUIT: /* Si c'est un événement QUITTER */
