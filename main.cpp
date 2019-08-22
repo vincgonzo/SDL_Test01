@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
 void pause();
 
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
         //SDL_WaitEvent(&event); /* On attend un événement qu'on récupère dans event */
         SDL_PollEvent(&event);
 
-        if(positionZozor.x >= ecran->w)
+        if(positionZozor.x >= (ecran->w - (zozor->w /2)))
         {
             versLaDroite = 1;
         }
